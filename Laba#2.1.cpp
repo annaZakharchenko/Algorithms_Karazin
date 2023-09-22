@@ -2,34 +2,37 @@
 
 using namespace std;
 
-class Node
+struct Node
 {
-public:
     int data;
     Node* next;
-
-    Node(int value) : data(value), next(nullptr) {}
 };
+
+Node* createNode(int data, Node* next = nullptr)
+{
+    Node* newNode = new Node;
+    newNode->data = data;
+    newNode->next = next;
+    return newNode;
+}
 
 void formLIFO_2(Node*& head, int data)
 {
-    Node* new_node = new Node(data);
-    new_node->next = head;
+    Node* new_node = createNode(data, head);
     head = new_node;
 }
-
 
 Node* formLIFO_1()
 {
     Node* head = nullptr;
-    int n;
+    int number;
     cout << "Enter the number of elements: ";
-    cin >> n;
+    cin >> number;
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < number; ++i)
     {
         int data;
-        cout << "Enter the value" << i + 1 << ": ";
+        cout << "Enter the value " << i + 1 << ": ";
         cin >> data;
         formLIFO_2(head, data);
     }
@@ -48,17 +51,13 @@ void printList(Node* head)
     cout << "nullptr" << endl;
 }
 
+
+
 int main()
 {
     Node* head = formLIFO_1();
-    cout << "elements of list:" << endl;
+    cout << "Elements of list:" << endl;
     printList(head);
 
-    while (head)
-    {
-        Node* temp = head;
-        head = head->next;
-        delete temp;
-    }
     return 0;
 }
