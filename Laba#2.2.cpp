@@ -2,29 +2,28 @@
 
 using namespace std;
 
-class Node
+struct Node
 {
-public:
     int data;
     Node* next;
-
-    Node(int value) : data(value), next(nullptr) {}
 };
 
 Node* formFIFO()
 {
     Node* head = nullptr;
     Node* tail = nullptr;
-    int n;
+    int number;
     cout << "Enter the number of elements: ";
-    cin >> n;
+    cin >> number;
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < number; ++i)
     {
         int data;
         cout << "Enter the value " << i + 1 << ": ";
         cin >> data;
-        Node* new_node = new Node(data);
+        Node* new_node = new Node;
+        new_node->data = data;
+        new_node->next = nullptr;
         if (!head)
         {
             head = new_node;
@@ -51,17 +50,12 @@ void printList(Node* head)
     cout << "nullptr" << endl;
 }
 
+
 int main()
 {
     Node* head = formFIFO();
     cout << "Elements of list:" << endl;
     printList(head);
 
-    while (head)
-    {
-        Node* temp = head;
-        head = head->next;
-        delete temp;
-    }
     return 0;
 }
