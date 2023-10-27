@@ -1,20 +1,90 @@
-// Laba#3(2).cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
-
-int main()
+void InsertBefore(FootballPlayer*& first, FootballPlayer*& last, int index, const string& name, Position posit, int age, int gamesPlayed, int goalsScored)
 {
-    std::cout << "Hello World!\n";
+    FootballPlayer* newPlayer = new FootballPlayer(name, posit, age, gamesPlayed, goalsScored);
+
+    if (index < 1)
+    {
+        cout << "Invalid index." << endl;
+        //delete newPlayer; 
+        return;
+    }
+
+    if (first == NULL)
+    {
+        cout << "No players in the team." << endl;
+        return;
+    }
+
+    if (index == 1)
+    {
+        newPlayer->next = first;
+        first = newPlayer;
+        if (last == nullptr)
+        {
+            last = newPlayer;
+        }
+        return;
+    }
+
+    FootballPlayer* prev = nullptr;
+    FootballPlayer* current = first;
+    int currentIndex = 1;
+
+    while (current && currentIndex < index)
+    {
+        prev = current;
+        current = current->next;
+        currentIndex++;
+    }
+
+    if (currentIndex != index)
+    {
+        cout << "Invalid index." << endl;
+        delete newPlayer;
+        return;
+    }
+
+    prev->next = newPlayer;
+    newPlayer->next = current;
+
+    if (current == nullptr)
+    {
+        last = newPlayer;
+    }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void InsertAfter(FootballPlayer*& first, FootballPlayer*& last, int index, const string& name, Position posit, int age, int gamesPlayed, int goalsScored)
+{
+    FootballPlayer* newPlayer = new FootballPlayer(name, posit, age, gamesPlayed, goalsScored);
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    if (index < 0)
+    {
+        cout << "Invalid index." << endl;
+        delete newPlayer; 
+        return;
+    }
+
+    FootballPlayer* current = first;
+    int currentIndex = 1;
+
+    while (current && currentIndex < index)
+    {
+        current = current->next;
+        currentIndex++;
+    }
+
+    if (currentIndex != index)
+    {
+        cout << "Invalid index." << endl;
+        delete newPlayer;
+        return;
+    }
+
+    newPlayer->next = current->next;
+    current->next = newPlayer;
+
+    if (current == nullptr)
+    {
+        last = newPlayer;
+    }
+}
