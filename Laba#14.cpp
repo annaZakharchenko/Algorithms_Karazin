@@ -108,12 +108,12 @@ void sortingOutput(void (*func)(vector<size_t>& arr, size_t& comparisons, size_t
 
 void sorting(void (*func)(vector<size_t>& arr, size_t& comparisons, size_t& swaps))
 {
-    cout << "- Best cases:" << std::endl;
+    cout << "- Best cases:" << endl;
     for (size_t i = 100; i <= 1000000; i *= 10)
     {
         sortingOutput(func, createArr(i, false));
     }
-    cout << "- Worst cases:" << std::endl;
+    cout << "- Worst cases:" << endl;
     for (size_t i = 100; i <= 1000000; i *= 10)
     {
         sortingOutput(func, createArr(i, true));
